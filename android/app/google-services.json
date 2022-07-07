@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "586639337026",
+    "project_id": "saintgits-mini-pro",
+    "storage_bucket": "saintgits-mini-pro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586639337026:android:cc2c89a0efacfd4227afdb",
+        "android_client_info": {
+          "package_name": "com.example.untitled5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586639337026-j41nb4jdp002l930fesvbkichgvpotte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbI5w0k5QXEJYAOLuqXZ7PLunBh18OsgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586639337026-j41nb4jdp002l930fesvbkichgvpotte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
