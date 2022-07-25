@@ -2,8 +2,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled5/Screens/HomePage.dart';
-import 'navbar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -34,21 +32,28 @@ class _AddFileState extends State<AddFile> {
     final urlDownload = await snapshot.ref.getDownloadURL();
     print('Download Link : $urlDownload');
     // createUser(name : name,);
-    final docUser = FirebaseFirestore.instance.collection('users').doc(user.uid);
-    final json = {
-      'user_id' :  name,
-      'fileUrl' : urlDownload,
-      'printType' : printType,
-      'addOns' : addOns,
-      'papper' : paperSel,
-      'copies': _n,
+    final doc = FirebaseFirestore.instance.collection('studOrTech').doc(user.email).get().then((value) {
+      print(value.data());
+      final userType = value.data().toString();
+      final docUser = FirebaseFirestore.instance.collection(userType).doc(name);
+      final json = {
+        'user_id' :  name,
+        'fileUrl' : urlDownload,
+        'printType' : printType,
+        'addOns' : addOns,
+        'papper' : paperSel,
+        'copies': _n,
 
-    };
-    await docUser.set(json);
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => _buildAboutDialog(context),
-    );
+      };
+      docUser.set(json);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => _buildAboutDialog(context),
+      );
+    });
+
+
+
   }
 
   Future selectFile () async {

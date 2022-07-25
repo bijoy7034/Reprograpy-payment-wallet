@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'accountPage.dart';
 import 'addFile.dart';
@@ -9,10 +8,8 @@ import 'navbar.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
-
   @override
   State<HomePage> createState() => _HomePageState();
-
 }
 
 class _HomePageState extends State<HomePage> {
@@ -26,12 +23,7 @@ class _HomePageState extends State<HomePage> {
           fontSize: 24,
           letterSpacing: 3.3,
         ),),
-        actions: [
-          IconButton(onPressed: ()=>{
-            Navigator.push(context,
-            MaterialPageRoute(builder: (context)=>AccountPage()))
-          }, icon: Icon(Icons.account_circle))
-        ],
+
         elevation: 0,
         centerTitle: false,
       ),
@@ -101,12 +93,12 @@ class _HomePageState extends State<HomePage> {
                                   heroTag: "3",
                                   onPressed: ()=>{
                                     Navigator.push(context,
-                                    MaterialPageRoute(builder: (context)=>SearchFiles()))
+                                    MaterialPageRoute(builder: (context)=>AccountPage()))
                                   },
-                                  backgroundColor: Colors.lightBlue, child: Icon(Icons.search_rounded),),
+                                  backgroundColor: Colors.lightBlue, child: Icon(Icons.account_circle),),
                                 Padding(
                                   padding: const EdgeInsets.only( left: 18.0, top: 8.0, right: 18),
-                                  child: Text("Serach"),
+                                  child: Text("Account"),
                                 )
                               ],
                             ),
@@ -126,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 FloatingActionButton(
                                   heroTag: "5",
-                                  onPressed: ()=>{},
+                                  onPressed: ()=>{Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchFiles()))},
                                   backgroundColor: Colors.lightBlue, child: Icon(Icons.support_agent),),
                                 Padding(
                                   padding: const EdgeInsets.only( left: 18.0, top: 8.0, right: 18),

@@ -2,6 +2,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'LoginPage.dart';
 import '../Screens/HomePage.dart';
 class SignUp extends StatefulWidget {
@@ -13,6 +15,12 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
+  List<String> items = ['Student', 'Teacher' , 'Others'];
+  String? selectedItem = 'Student';
+
+
+//  final user1 = FirebaseAuth.instance.currentUser!;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordController1 = TextEditingController();
@@ -140,6 +148,28 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: SizedBox(
+                      width: 340,
+                      height: 50,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Icon(Icons.person),
+                          ),
+                        ),
+                        value: selectedItem,
+                        items: items
+                            .map((item) =>DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(item, style: TextStyle(color: Colors.blueGrey,fontSize: 18),)))
+                            .toList(),
+                        onChanged: (item)=> setState(()=> selectedItem = item),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 40),
                   Hero(
                     tag: "login_btn",
@@ -185,6 +215,13 @@ class _SignUpState extends State<SignUp> {
     );
   }
   Future signUp() async{
+
+    final docUser = FirebaseFirestore.instance.collection('studOrTech').doc(emailController.text.trim());
+    final json = {
+      'user' :  selectedItem,
+    };
+    await docUser.set(json);
+
     final isValidForm = formKey1.currentState!.validate();
     final isValidForm1 = formKey2.currentState!.validate();
     final isValidForm2 = formKey3.currentState!.validate();

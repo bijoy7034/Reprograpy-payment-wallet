@@ -24,44 +24,14 @@ class NavBar extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text('Favorites'),
-            onTap: () => null,
-          ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Account Settings'),
-            onTap: () => null,
-          ),
-          ListTile(
-            leading: const Icon(Icons.share),
-            title: Text('Share'),
-            onTap: () => null,
-          ),
-          ListTile(
-            leading: Icon(Icons.notifications),
-            title: Text('Orders'),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => null,
-          ),
-          ListTile(
-            leading: Icon(Icons.description),
-            title: Text('Policies'),
-            onTap: () => null,
-          ),
-          Divider(),
+
           ListTile(
             title: Text('Logout'),
             leading: Icon(Icons.exit_to_app),
             onTap: ()=> FirebaseAuth.instance.signOut(),
           ),
           Padding(
-            padding: const EdgeInsets.only(top:128.0,left:60),
+            padding: const EdgeInsets.only(top:428.0,left:60),
             child: Text("Copyright Reserved \u00a9",style: TextStyle(
                 color: Colors.black45
             ),),
