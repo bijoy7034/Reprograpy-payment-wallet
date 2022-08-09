@@ -16,6 +16,8 @@ class _LoginPageState extends State<LoginPage> {
   final formKey2 = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  // final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  String errorMessage ='';
 
   @override
   void dispose() {
@@ -96,6 +98,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+                  Center(
+                    child: Text(errorMessage),
+                  ),
                   const SizedBox(height: 10),
                   Hero(
                     tag: "login_btn",
@@ -150,17 +155,46 @@ class _LoginPageState extends State<LoginPage> {
     final isValidForm = formKey1.currentState!.validate();
     final isValidForm1 = formKey2.currentState!.validate();
     if(isValidForm && isValidForm1){
-      showDialog(
-          context: context,
-          builder: (context)=>Center(child: CircularProgressIndicator(),));
+      // showDialog(
+      //     context: context,
+      //     builder: (context)=>Center(child: CircularProgressIndicator(),));
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: emailController.text.trim(),
             password: passwordController.text.trim());
+        final snackBar = SnackBar(content: Text('Login Success' , style: TextStyle(color: Colors.white),),backgroundColor: Colors.green,);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }on FirebaseAuthException catch (e){
         print(e);
+        errorMessage = e.code;
+        print(errorMessage);
+        final snackBar = SnackBar(content: Text(errorMessage.toString(),style: TextStyle(color: Colors.white),),backgroundColor: Colors.red,);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
       }
-      navigatorKey.currentState?.popUntil((route)=> route.isFirst);
+
     }
   }
+}
+
+Widget _buildAboutDialog(BuildContext context) {
+  final user = FirebaseAuth.instance.currentUser!;
+  return new AlertDialog(
+    title: Center(child: const Text('File successfully uploaded')),
+    content: new Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+    ),
+    actions: <Widget>[
+      Center(child: Text("Password")),
+      SizedBox(height: 30,),
+      new FlatButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        textColor: Theme.of(context).primaryColor,
+        child: const Text('OK'),
+      ),
+    ],
+  );
 }

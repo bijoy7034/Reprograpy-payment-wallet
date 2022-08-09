@@ -8,6 +8,7 @@ void main()async{
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
+final navigatorKey = GlobalKey<NavigatorState>();
 Future initialization(BuildContext? context)async{
    await Future.delayed(Duration(seconds: 3));
 }

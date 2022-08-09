@@ -144,7 +144,9 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             children: [
                               Text("Track all Your Print Orders. Get Started Now     "),
-                              ElevatedButton(onPressed: ()=>{}, child: Text("Track")
+                              ElevatedButton(onPressed: ()=>{
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>History()))
+                              }, child: Text("Track")
                               ),
                             ],
                           ),

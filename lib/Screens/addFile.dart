@@ -19,6 +19,8 @@ class _AddFileState extends State<AddFile> {
   PlatformFile? pickedFile;
   UploadTask? uploadTask;
   final controller = TextEditingController();
+  String addInfo ='';
+  final TextController = TextEditingController();
 
   Future uploadFile() async{
     final name = user.email!;
@@ -43,6 +45,8 @@ class _AddFileState extends State<AddFile> {
         'addOns' : addOns,
         'papper' : paperSel,
         'copies': _n,
+        'status': 'Processing',
+        'aditional' : TextController.text,
 
       };
       docUser.set(json);
@@ -265,6 +269,7 @@ class _AddFileState extends State<AddFile> {
                 child: Column(
                   children: [
                     TextField(
+                      controller: TextController,
                       decoration: InputDecoration(
                           hintStyle: TextStyle(color: Colors.blue.shade300),
                           hintText: "Do you want to add any printing instructions"

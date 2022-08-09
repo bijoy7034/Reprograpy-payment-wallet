@@ -27,6 +27,7 @@ class _SignUpState extends State<SignUp> {
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
+  String errorMessage = '';
   @override
   void dispose() {
     emailController.dispose();
@@ -232,11 +233,17 @@ class _SignUpState extends State<SignUp> {
       try{
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
-          password: passwordController.text.trim(),
-        );
+          password: passwordController.text.trim());
+            final snackBar = SnackBar(content: Text('Login Success' , style: TextStyle(color: Colors.white),),backgroundColor: Colors.green,);
+         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }on FirebaseAuthException catch (e){
-        print(e);
-      }
+    print(e);
+    errorMessage = e.code;
+    print(errorMessage);
+    final snackBar = SnackBar(content: Text(errorMessage.toString(),style: TextStyle(color: Colors.white),),backgroundColor: Colors.red,);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    }
       navigatorKey.currentState?.popUntil((route)=> route.isFirst);
     }
   }
